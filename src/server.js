@@ -1,6 +1,8 @@
 import express from 'express'
+import morgan from 'morgan'
 
 const server = express()
 
-server.listen(3000)
-console.log('servervidor en puerto', 3000)
+server.use(morgan('dev'))
+
+export default server

@@ -1,14 +1,19 @@
-import {Router} from 'express'
-import {authRequired} from '../middlewares/validateToken.js'
-import {validateSchema} from '../middlewares/validator.middleware.js'
-import {registerSchema, loginSchema} from '../schemas/auth.schema.js'
-import {register, login, logout, profile} from '../controllers/auth.controller.js'
+import { Router } from "express";
+import { validateSchema } from "../middlewares/validator.middleware.js";
+import { loginSchema, registerSchema } from "../schemas/auth.schema.js";
 
-const router = Router()
+import {
+    login,
+    logout,
+    register,
+    verifyToken,
+  } from "../controllers/auth.controller.js";
 
-router.post('/register', validateSchema(registerSchema), register)
-router.post('/login', validateSchema(loginSchema), login);
-router.post('/logout', logout)
-router.get('/profile', authRequired, profile);
+const router = Router();
 
-export default router
+router.post("/register", validateSchema(registerSchema), register);
+router.post("/login", validateSchema(loginSchema), login);
+router.get("/verify", verifyToken);
+router.post("/logout", verifyToken, logout);
+
+export default router;

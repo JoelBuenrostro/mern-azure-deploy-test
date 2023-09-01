@@ -1,16 +1,19 @@
-import express from 'express'
 import server from './server.js'
-import path from 'path'
-import {connectDB} from './config/db.js'
 
-connectDB();
-server.listen(4000)
+//Variables de ambiente
+import { PORT } from "./config/config.js"
+import { connectDB } from './config/db.js'
 
 
-//production script
-server.use(express.static("./client/dist"));
-server.get("*", (req, res) => {
-    res.sendFile(path.resolve("client", "dist", "index.html"))
-});
+async function main() {
+    try {
+        await connectDB();
+        server.listen(PORT);
+        console.log(`Escuchando puerto en http://localhost:${PORT}`);
+        console.log(`Ambiente: ${process.env.NODE_ENV}`)
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-console.log('servervidor en puerto', 4000)
+main();

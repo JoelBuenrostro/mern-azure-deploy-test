@@ -22,7 +22,7 @@ server.use("/api", taksRoutes);
 
 server.use(express.static('./src/dist'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
